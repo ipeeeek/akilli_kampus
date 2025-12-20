@@ -1,38 +1,35 @@
-// Bu sınıf bir bildirimin sahip olduğu tüm özellikleri tanımlar.
 class NotificationModel {
-  final String id;
   final String title;
-  final String description;
-  final String type; // Sağlık, Güvenlik, Arıza vb.
-  final String status; // Açık, İnceleniyor, Çözüldü
-  final DateTime createdAt;
+  String status; // Güncellenebilmesi için final kaldırıldı
+  final String location;
+  final String type;
+  String description; // Eklendi
+  bool isFollowing;   // Eklendi
 
   NotificationModel({
-    required this.id,
     required this.title,
-    required this.description,
-    required this.type,
     required this.status,
-    required this.createdAt,
+    required this.location,
+    required this.type,
+    this.description = "Bu bildirimin detaylı açıklaması henüz eklenmemiştir.",
+    this.isFollowing = false,
   });
 }
 
-// Test amaçlı kullanacağımız sahte veriler
+// Home Screen için dummy verilerini de buna göre güncellemelisin:
 List<NotificationModel> dummyNotifications = [
   NotificationModel(
-    id: "1",
-    title: "Kütüphane Priz Arızası",
-    description: "2. kattaki çalışma masalarında prizler çalışmıyor.",
-    type: "Teknik Arıza",
-    status: "Açık",
-    createdAt: DateTime.now().subtract(Duration(hours: 2)),
+    title: "Sınav Programı",
+    status: "Yeni",
+    location: "Mühendislik",
+    type: "Duyuru",
+    description: "Vize sınav programı okulun web sitesinde yayınlanmıştır.",
   ),
   NotificationModel(
-    id: "2",
-    title: "Yemekhane Önü Kaygan Zemin",
-    description: "Yağmur nedeniyle giriş çok kaygan, önlem alınmalı.",
-    type: "Güvenlik",
-    status: "İnceleniyor",
-    createdAt: DateTime.now().subtract(Duration(minutes: 45)),
+    title: "Yemekhane Menüsü",
+    status: "Güncel",
+    location: "Merkezi",
+    type: "Genel",
+    description: "Bugünkü menüde yayla çorbası ve taze fasulye var.",
   ),
 ];
