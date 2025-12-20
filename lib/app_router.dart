@@ -1,31 +1,38 @@
-// lib/app_router.dart dosyasına ait KESİN KOD
 import 'package:flutter/material.dart';
-import 'screens/home_screen.dart'; // Doğru yol
-import 'screens/register_screen.dart'; // Doğru yol
+// Kendi oluşturduğun sayfaları buraya import etmelisin
+import 'screens/home_screen.dart';
+import 'screens/register_screen.dart';
+import 'screens/login_screen.dart'; // Yeni eklediğimiz sayfa
+import 'map/map_screen.dart';
+import 'screens/profile_screen.dart';
 
 class RoutePaths {
+  static const String map = '/map';
   static const String home = '/';
   static const String register = '/register';
-  static const String profile = '/profile';
+  static const String login = '/login';   // Login rotasını buraya ekledik
+  static const String profile = '/profile'; // Birazdan yapacağın profil sayfası
 }
 
-Route<dynamic> generateRoute(RouteSettings settings) {
-  switch (settings.name) {
-    case RoutePaths.home:
-    // Const'ı kaldırdık
-      return MaterialPageRoute(builder: (context) => HomeScreen());
-
-    case RoutePaths.register:
-    // Const'ı kaldırdık
-      return MaterialPageRoute(builder: (context) => RegisterScreen());
-
-    default:
-      return MaterialPageRoute(
-        builder: (context) => const Scaffold(
-          body: Center(
-            child: Text('404 Hata: Rota bulunamadı.'),
+class AppRouter {
+  static Route<dynamic> generateRoute(RouteSettings settings) {
+    switch (settings.name) {
+      case RoutePaths.profile:
+        return MaterialPageRoute(builder: (_) => const ProfileScreen());
+      case RoutePaths.map:
+        return MaterialPageRoute(builder: (_) => const MapScreen());
+      case RoutePaths.home:
+        return MaterialPageRoute(builder: (_) => const HomeScreen());
+      case RoutePaths.register:
+        return MaterialPageRoute(builder: (_) => const RegisterScreen());
+      case RoutePaths.login: // Login sayfası için yol tarifi
+        return MaterialPageRoute(builder: (_) => const LoginScreen());
+      default:
+        return MaterialPageRoute(
+          builder: (_) => Scaffold(
+            body: Center(child: Text('Hata: ${settings.name} rotası bulunamadı.')),
           ),
-        ),
-      );
+        );
+    }
   }
 }
