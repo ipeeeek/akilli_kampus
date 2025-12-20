@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "765529048878",
+    "project_id": "akilli-kampus-dcd61",
+    "storage_bucket": "akilli-kampus-dcd61.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:765529048878:android:e1e2b722b8e2f10cf3dcbf",
+        "android_client_info": {
+          "package_name": "com.akillikampus.akilli_kampus"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCtGOcWtsroaDLAOWepy0MMtb7ePtttDI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:765529048878:android:5117087dd2bcce77f3dcbf",
+        "android_client_info": {
+          "package_name": "com.example.akillikampus"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCtGOcWtsroaDLAOWepy0MMtb7ePtttDI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
