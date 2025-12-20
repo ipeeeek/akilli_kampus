@@ -18,7 +18,7 @@ class AnaUygulama extends StatelessWidget {
         useMaterial3: true,
       ),
 
-      onGenerateRoute: generateRoute,
+      onGenerateRoute: AppRouter.generateRoute,
       initialRoute: RoutePaths.home, // Başlangıç rotası Home (Giriş) olarak ayarlandı
     );
   }

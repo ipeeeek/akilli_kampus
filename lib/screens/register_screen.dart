@@ -1,6 +1,6 @@
 // lib/screens/register_screen.dart dosyasının KESİN VE TAM KODU
 import 'package:flutter/material.dart'; // <--- Bu satır, StatelessWidget'ı getirir
-
+import '../app_router.dart';
 class RegisterScreen extends StatelessWidget {
   // Önceki hatayı çözmek için const'ı zaten kaldırmıştık
   const RegisterScreen({super.key});
@@ -61,7 +61,9 @@ class RegisterScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    debugPrint('Kayıt Ol butonuna basıldı');
+                    //print('Kayıt Ol butonuna basıldı');
+                    // Asıl önemli olan yönlendirme satırı:
+                    Navigator.pushNamed(context, RoutePaths.login);
                   },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 15),
