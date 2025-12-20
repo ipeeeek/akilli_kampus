@@ -35,7 +35,7 @@ class AnaUygulama extends StatelessWidget {
         ),
       ),
       onGenerateRoute: AppRouter.generateRoute,
-      initialRoute: RoutePaths.home,
+      initialRoute: RoutePaths.login,
     );
   }
 }
