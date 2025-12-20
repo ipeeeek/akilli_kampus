@@ -22,7 +22,7 @@ class AppRouter {
       case RoutePaths.map:
         return MaterialPageRoute(builder: (_) => const MapScreen());
       case RoutePaths.home:
-        return MaterialPageRoute(builder: (_) => HomeScreen());
+        return MaterialPageRoute(builder: (_) => const HomeScreen());
       case RoutePaths.register:
         return MaterialPageRoute(builder: (_) => const RegisterScreen());
       case RoutePaths.login: // Login sayfası için yol tarifi
