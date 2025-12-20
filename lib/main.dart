@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
 
+import 'firebase_options.dart';
 // Kendi dosyalarının yolları (doğru olduğundan emin ol)
 import 'app_router.dart';
 
@@ -18,9 +18,11 @@ import 'app_router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   runApp(const AnaUygulama());
 }
 
@@ -38,7 +40,6 @@ class AnaUygulama extends StatelessWidget {
         primaryColor: const Color(0xFF001F5B),
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color(0xFF001F5B),
-          primary: const Color(0xFF001F5B),
         ),
         scaffoldBackgroundColor: Colors.white,
         useMaterial3: true,
