@@ -1,80 +1,95 @@
-// lib/screens/register_screen.dart dosyasının KESİN VE TAM KODU
-import 'package:flutter/material.dart'; // <--- Bu satır, StatelessWidget'ı getirir
+import 'package:flutter/material.dart';
 import '../app_router.dart';
-class RegisterScreen extends StatelessWidget {
-  // Önceki hatayı çözmek için const'ı zaten kaldırmıştık
+
+class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
+
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  final _formKey = GlobalKey<FormState>(); // Form kontrolü için anahtar
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Yeni Hesap Oluştur'),
+        title: const Text('Kampüs Kayıt'),
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24.0),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20.0),
+        child: Form(
+          key: _formKey, // Formu buraya bağladık
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
+            children: [
+              const SizedBox(height: 20),
               const Text(
-                'Kayıt Ol',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                'Yeni Hesap Oluştur',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 30),
 
-              // E-posta alanı
-              const TextField(
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  labelText: 'E-posta Adresi',
-                  prefixIcon: Icon(Icons.email_outlined),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
+              // Ad Soyad Alanı
+              TextFormField(
+                decoration: const InputDecoration(
+                  labelText: 'Ad Soyad',
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.person),
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) return 'Ad Soyad boş bırakılamaz';
+                  return null;
+                },
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 15),
 
-              // Şifre alanı
-              const TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: 'Şifre (En az 6 karakter)',
-                  prefixIcon: Icon(Icons.lock_outline),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
+              // E-posta Alanı
+              TextFormField(
+                decoration: const InputDecoration(
+                  labelText: 'Kampüs E-postası',
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.email),
                 ),
+                validator: (value) {
+                  if (value == null || !value.contains('@')) return 'Geçerli bir e-posta giriniz';
+                  return null;
+                },
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 15),
 
-              // Şifre Tekrar alanı
-              const TextField(
+              // Şifre Alanı
+              TextFormField(
                 obscureText: true,
-                decoration: InputDecoration(
-                  labelText: 'Şifreyi Tekrar Gir',
-                  prefixIcon: Icon(Icons.lock_open_outlined),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
+                decoration: const InputDecoration(
+                  labelText: 'Şifre',
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.lock),
                 ),
+                validator: (value) {
+                  if (value == null || value.length < 6) return 'Şifre en az 6 karakter olmalıdır';
+                  return null;
+                },
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 25),
 
               // Kayıt Ol Butonu
               SizedBox(
                 width: double.infinity,
+                height: 50,
                 child: ElevatedButton(
                   onPressed: () {
-                    //print('Kayıt Ol butonuna basıldı');
-                    // Asıl önemli olan yönlendirme satırı:
-                    Navigator.pushNamed(context, RoutePaths.login);
+                    if (_formKey.currentState!.validate()) {
+                      // Eğer form geçerliyse Giriş sayfasına yönlendir
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Hesap başarıyla oluşturuldu!')),
+                      );
+                      Navigator.pushNamed(context, RoutePaths.login);
+                    }
                   },
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  child: const Text('Kayıt Ol', style: TextStyle(fontSize: 18)),
+                  child: const Text('Kayıt Ol'),
                 ),
               ),
-              const SizedBox(height: 20),
             ],
           ),
         ),

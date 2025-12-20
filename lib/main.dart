@@ -13,9 +13,21 @@ class AnaUygulama extends StatelessWidget {
     return MaterialApp( // Buradaki const kaldırıldı (Const Hatası Çözüldü)
       debugShowCheckedModeBanner: false,
       title: 'Akıllı Kampüs',
-      theme: ThemeData( // Buradaki const kaldırıldı (Const Hatası Çözüldü)
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+      theme: ThemeData(
+        // Ana renk: Koyu Lacivert
+        primaryColor: const Color(0xFF001F5B),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF001F5B),
+          primary: const Color(0xFF001F5B),
+        ),
+        // Arka plan: Beyaz
+        scaffoldBackgroundColor: Colors.white,
         useMaterial3: true,
+        // Üst çubuk ayarı
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFF001F5B),
+          foregroundColor: Colors.white,
+        ),
       ),
 
       onGenerateRoute: AppRouter.generateRoute,
