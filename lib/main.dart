@@ -2,6 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
+// Kendi dosyalarının yolları (doğru olduğundan emin ol)
+import 'app_router.dart';
+
+Future<void> main() async {
+  // Flutter bağlamını başlatmak, Firebase için zorunludur.
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Firebase'i başlatıyoruz
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
 import 'app_router.dart';
 
 Future<void> main() async {
@@ -20,6 +32,8 @@ class AnaUygulama extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Akıllı Kampüs',
+
+      // Tema ayarları (Koyu mavi kampüs teması)
       theme: ThemeData(
         primaryColor: const Color(0xFF001F5B),
         colorScheme: ColorScheme.fromSeed(
@@ -33,6 +47,10 @@ class AnaUygulama extends StatelessWidget {
           foregroundColor: Colors.white,
         ),
       ),
+
+      // Navigasyon Yapısı
+      // 'home: HomeScreen()' kullanmak yerine 'onGenerateRoute' kullanıyoruz.
+      // Bu sayede GitHub birleştirmelerinde sayfa karmaşası yaşamazsınız.
       onGenerateRoute: AppRouter.generateRoute,
       initialRoute: RoutePaths.home,
     );
