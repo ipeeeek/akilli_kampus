@@ -3,7 +3,10 @@ import 'package:firebase_core/firebase_core.dart';
 
 import 'firebase_options.dart';
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 import 'app_router.dart';
