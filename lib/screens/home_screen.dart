@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/notification_model.dart';
 import 'detail_screen.dart';
+import '../app_router.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -25,6 +26,13 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Kampüs Bildirimleri"),
+        actions: [
+          IconButton(
+            tooltip: 'Harita',
+            icon: const Icon(Icons.map),
+            onPressed: () => Navigator.pushNamed(context, RoutePaths.map),
+          ),
+        ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(60),
           child: Padding(

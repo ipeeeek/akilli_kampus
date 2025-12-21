@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-
+import 'map/map_screen.dart';
 import 'firebase_options.dart';
 import 'app_router.dart';
 
@@ -35,7 +35,7 @@ class AnaUygulama extends StatelessWidget {
         ),
       ),
       onGenerateRoute: AppRouter.generateRoute,
-      initialRoute: RoutePaths.home,
+      initialRoute: RoutePaths.login,
     );
   }
 }
