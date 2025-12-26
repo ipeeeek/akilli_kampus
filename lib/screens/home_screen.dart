@@ -2,6 +2,10 @@ import 'package:flutter/material.dart'; // Arayüz widgetları
 import '../models/notification_model.dart'; // Veri modeli
 import 'detail_screen.dart'; // Detay sayfası
 import '../app_router.dart'; // Sayfa yönlendirmeleri için router
+import 'package:flutter/material.dart';
+import '../models/notification_model.dart';
+import 'detail_screen.dart';
+import '../app_router.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -50,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 filled: true,
                 fillColor: Colors.white, // Beyaz arka planla öne çıksın
+                fillColor: Colors.white,
               ),
               // Her harf girişinde ekranı yenileyip listeyi güncelliyorum
               onChanged: (val) => setState(() => searchQuery = val),

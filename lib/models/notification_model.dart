@@ -12,6 +12,18 @@ class NotificationModel {
   final double lat;
   final double lng;
   final DateTime createdAt; // Oluşturulma zamanı
+  final String id;
+  final String title;
+  String status;
+  final String location;
+  final String type;
+  String description;
+  bool isFollowing;
+
+  //For GoogleMaps
+  final double lat;
+  final double lng;
+  final DateTime createdAt;
 
   NotificationModel({
     required this.id,
@@ -30,6 +42,11 @@ class NotificationModel {
 }
 
 // Arayüzü test etmek için oluşturduğum sahte (dummy) veri listesi
+    this.description =
+    "Bu bildirimin detaylı açıklaması henüz eklenmemiştir.",
+    this.isFollowing = false,
+  });
+}
 List<NotificationModel> dummyNotifications = [
   NotificationModel(
     id: '1',
@@ -40,6 +57,7 @@ List<NotificationModel> dummyNotifications = [
     lat: 39.9056,
     lng: 41.2682,
     createdAt: DateTime.now().subtract(const Duration(minutes: 10)), // 10 dk önce
+    createdAt: DateTime.now().subtract(const Duration(minutes: 10)),
     description: "Vize sınav programı okulun web sitesinde yayınlanmıştır.",
   ),
   NotificationModel(
@@ -51,6 +69,7 @@ List<NotificationModel> dummyNotifications = [
     lat: 39.9039,
     lng: 41.2654,
     createdAt: DateTime.now().subtract(const Duration(hours: 1)), // 1 saat önce
+    createdAt: DateTime.now().subtract(const Duration(hours: 1)),
     description: "Bugünkü menüde yayla çorbası ve taze fasulye var.",
   ),
 ];

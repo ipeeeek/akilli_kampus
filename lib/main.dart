@@ -9,6 +9,14 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Firebase'i platforma uygun ayarlarla (Android/iOS) başlatıyorum
+import 'package:firebase_core/firebase_core.dart';
+import 'map/map_screen.dart';
+import 'firebase_options.dart';
+import 'app_router.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -39,6 +47,8 @@ class AnaUygulama extends StatelessWidget {
       // Sayfa geçiş mantığını merkezi router'a bağladım
       onGenerateRoute: AppRouter.generateRoute,
       initialRoute: RoutePaths.login, // Uygulama açılışta giriş ekranıyla başlasın
+      onGenerateRoute: AppRouter.generateRoute,
+      initialRoute: RoutePaths.login,
     );
   }
 }
