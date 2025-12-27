@@ -1,3 +1,4 @@
+// İzole harita ekranı. Sadece test amaçlı.
 import 'package:flutter/material.dart';
 import 'map_screen.dart';
 

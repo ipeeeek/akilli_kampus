@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-import '../models/notification_model.dart';
-import '../screens/detail_screen.dart';
+import 'package:flutter/material.dart'; // Flutter UI araçları (Widget, Scaffold, setState etc.)
+import 'package:google_maps_flutter/google_maps_flutter.dart'; // Google maps harita elemanları. (GoogleMap widget, Marker etc.)
+import '../models/notification_model.dart'; // Notification modelleri (title, status, type, lat/lng, createdAt, etc.)
+import '../screens/detail_screen.dart'; // "Detayı Gör" sayfası.
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -12,9 +11,8 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  // Atatürk Üniversitesi Kampüsü (Erzurum) - başlangıç odak
-  // (Gerekirse 2. adımda ince ayar yaparız)
-  static const LatLng _atauniCenter = LatLng(39.9048, 41.2668);
+  // Atatürk Üniversitesi Kampüsü - başlangıçdaki odak
+  static const LatLng _atauniCenter = LatLng(39.9048, 41.2668); // kampüs koordinatlarını değişkene atadık.
 
   // Kampüs çevresini kapsayan bir zoom
   static const CameraPosition _initialCamera = CameraPosition(
@@ -22,45 +20,58 @@ class _MapScreenState extends State<MapScreen> {
     zoom: 15.5,
   );
 
+  // Seçilen bildirim
+  // null ise kart görünmez
   NotificationModel? _selected;
 
+  //setState değiştiğinde UI güncellenir
   @override
   Widget build(BuildContext context) {
-    // Şimdilik mevcut dummyNotifications ile pin gösteriyoruz.
-    // Firestore’a geçtiğinde sadece burayı stream ile değiştireceğiz.
+    // Şimdilik mevcut pinleri dummyNotifications ile gösteriyoruz.
+    // TO DO: Firestore’a geçtiğimizde burayı StreamBuilder ile değiştireceğiz.
     final items = dummyNotifications;
 
+    // her dummyNotification için .map() ile bir Marker üretilir.
+    // .map() Iterable döndürür.
+    // GoogleMap için Set<Marker> gerekli
+    // Bu nedenle en sonda toSet() kullanıldı.
     final markers = items.map((n) {
       return Marker(
-        markerId: MarkerId(n.id),
-        position: LatLng(n.lat, n.lng),
-        icon: BitmapDescriptor.defaultMarkerWithHue(_hueForType(n.type)),
-        onTap: () => setState(() => _selected = n),
+        markerId: MarkerId(n.id), // ID
+        position: LatLng(n.lat, n.lng), // KONUM (enlem, boylam) = (latitude, longtitude)
+        icon: BitmapDescriptor.defaultMarkerWithHue(_hueForType(n.type)), // RENK
+        onTap: () => setState(() => _selected = n), // onTap = tıklanınca bildirim _selected a atanır.
       );
     }).toSet();
 
+    // AppBar + Body
     return Scaffold(
-      appBar: AppBar(title: const Text('Atatürk Üni Kampüs Haritası')),
+      appBar: AppBar(title: const Text('Atatürk Üniversitesi Kampüs Haritası')),
       body: Stack(
+        // Harita alt katmanda, bildirim seçildiğinde bilgi kartı üstte görünür.
         children: [
+          // Haritanın ana widget'ı
           GoogleMap(
-            initialCameraPosition: _initialCamera,
+            initialCameraPosition: _initialCamera, // ilk kamera pozisyonu
             markers: markers,
-            zoomControlsEnabled: true,
-            myLocationEnabled: true,
-            myLocationButtonEnabled: true,
-            onTap: (_) => setState(() => _selected = null),
+            zoomControlsEnabled: true, // zoom +/- butonları
+            myLocationEnabled: true, // kullanıcı konumu
+            myLocationButtonEnabled: true, // kullanıcı konumuna gitme butonu
+            onTap: (_) => setState(() => _selected = null), // boşluğa tıklanınca kartı kapatma mekanizması
           ),
 
-          // Pin bilgi kartı (yönerge)
+          // Pin bilgi kartı seçili ise
           if (_selected != null)
             Positioned(
               left: 12,
               right: 12,
               bottom: 12,
+              // Kart widget'ı
               child: _PinInfoCard(
                 n: _selected!,
+                // Kartı kapatma
                 onClose: () => setState(() => _selected = null),
+                // "Detayı Gör" butonu seçildiğinde sayfaya yönlendirme mekanizması
                 onDetail: () {
                   Navigator.push(
                     context,
@@ -76,6 +87,7 @@ class _MapScreenState extends State<MapScreen> {
     );
   }
 
+  // Bildirim türüne göre marker rengi
   double _hueForType(String type) {
     switch (type.toLowerCase()) {
       case 'sağlık':
@@ -101,10 +113,11 @@ class _MapScreenState extends State<MapScreen> {
   }
 }
 
+// Pin Bildirim Kartı
 class _PinInfoCard extends StatelessWidget {
-  final NotificationModel n;
-  final VoidCallback onClose;
-  final VoidCallback onDetail;
+  final NotificationModel n; // gösterilen bildirim verisi
+  final VoidCallback onClose; // kapatma durumunda çalıştırılan fonksiyon
+  final VoidCallback onDetail; // detay gösterme durumunda çalıştırılan fonksiyon
 
   const _PinInfoCard({
     required this.n,
@@ -112,6 +125,7 @@ class _PinInfoCard extends StatelessWidget {
     required this.onDetail,
   });
 
+  // Bildirim ne kadar süre önce oluşturuldu?
   String _timeAgo(DateTime dt) {
     final diff = DateTime.now().difference(dt);
     if (diff.inSeconds < 60) return '${diff.inSeconds} sn önce';
@@ -123,10 +137,11 @@ class _PinInfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      elevation: 10,
+      elevation: 10, // gölge derinliği
       borderRadius: BorderRadius.circular(16),
       child: Container(
         padding: const EdgeInsets.all(12),
+        // arka plan + köşe yuvarlatma
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           color: Colors.white,
@@ -147,28 +162,30 @@ class _PinInfoCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    n.type,
+                    n.type, // TÜR
                     style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    n.title,
+                    n.title, // BAŞLIK
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    _timeAgo(n.createdAt),
+                    _timeAgo(n.createdAt), // SÜRE BİLGİSİ
                     style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
                   ),
                 ],
               ),
             ),
+            // "Detayı Gör" BUTONU
             TextButton(
               onPressed: onDetail,
               child: const Text('Detayı Gör'),
             ),
+            // Kartı kapatma BUTONU
             IconButton(
               onPressed: onClose,
               icon: const Icon(Icons.close),
@@ -179,6 +196,7 @@ class _PinInfoCard extends StatelessWidget {
     );
   }
 
+  // DURUMA GÖRE RENK
   Color _statusColor(String status) {
     switch (status.toLowerCase()) {
       case 'açık':
