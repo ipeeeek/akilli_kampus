@@ -10,8 +10,8 @@ class RoutePaths {
   static const String map = '/map';
   static const String home = '/';
   static const String register = '/register';
-  static const String login = '/login';   // Login rotasını buraya ekledik
-  static const String profile = '/profile'; // Birazdan yapacağın profil sayfası
+  static const String login = '/login';
+  static const String profile = '/profile';
 }
 
 class AppRouter {
@@ -25,7 +25,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const HomeScreen());
       case RoutePaths.register:
         return MaterialPageRoute(builder: (_) => const RegisterScreen());
-      case RoutePaths.login: // Login sayfası için yol tarifi
+      case RoutePaths.login:
         return MaterialPageRoute(builder: (_) => const LoginScreen());
       default:
         return MaterialPageRoute(
